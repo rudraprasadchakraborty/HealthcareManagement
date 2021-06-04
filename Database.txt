@@ -1,0 +1,245 @@
+Database Entry (Doctors):
+package HealthCare;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+public class insert1 extends doctor {
+public static void DocInsert() {
+int ID = 0;
+String Name = null;
+String Specialist = null;
+String Visiting_Hours = null;
+String Availability = null;
+int Fees = 0;
+Scanner scan = new Scanner(System.in);
+try (Connection con =
+
+DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl",
+"scott","tiger"); Statement stmt = con.createStatement();) {
+System.out.println("Enter \n 1.Insert Doctor \n 2. Delete Doctor");
+
+int opt = scan.nextInt();
+switch (opt) {
+
+case (1):
+System.out.println("Enter New ID :-");
+ID = scan.nextInt();
+System.out.println("Enter New Name :-");
+Name = scan.next();
+System.out.println("Enter New Specialist :-");
+Specialist = scan.next();
+
+System.out.println("Enter New Visiting Hours of the Doctor :-");
+
+Visiting_Hours = scan.next();
+
+System.out.println("Enter Availability of the Doctor :-");
+
+Availability = scan.next();
+System.out.println("Enter Fees of the Doctor :-");
+Fees = scan.nextInt();
+
+String q1 = "INSERT INTO DOCTOR VALUES('" + ID + "', '" + Name
++ "', '" + Specialist + "','"+ Visiting_Hours + "','" + Availability + "','" +
+Fees + "')";
+
+int ins = stmt.executeUpdate(q1);
+if (ins > 0)
+System.out.println("Successfully Inserted");
+else
+System.out.println("Insert Failed");
+con.close();
+break;
+case (2):
+
+System.out.println("Enter ID to be deleted :-");
+ID = scan.nextInt();
+
+String q2 = "DELETE FROM DOCTOR WHERE ID =" + ID;
+
+int del = stmt.executeUpdate(q2);
+if (del > 0)
+System.out.println("Successfully deleted");
+else
+System.out.println("Deletion Failed");
+con.close();
+break;
+default:
+System.out.println("NOT PRESENT !!");
+}
+} catch (SQLException e) {
+System.out.println("Error with data retrieval- SQL" + e);
+}
+}
+
+}
+
+Database Entry (Patients):
+package HealthCare;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+public class insert2 extends patient {
+public static void PatInsert() {
+int Pat_ID = 0;
+String Pat_Name = null;
+String Pat_sex = null;
+String Pat_Treat = null;
+String Pat_MedHis = null;
+Scanner scan = new Scanner(System.in);
+try (Connection con =
+DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl",
+"scott","tiger"); Statement stmt = con.createStatement();) {
+System.out.println("Enter /n/t 1.Insert New Patient /n/t 2. Delete
+Existing Patient");
+
+int choose = scan.nextInt();
+switch (choose) {
+
+case (1):
+System.out.println("Enter Patient ID :-");
+Pat_ID = scan.nextInt();
+System.out.println("Enter Patient Name :-");
+Pat_Name = scan.next();
+
+System.out.println("Enter Sex of Patient (M/F) :-");
+
+Pat_sex = scan.next();
+
+System.out.println("Enter Treatment for Disease/Surgery :-");
+
+Pat_Treat = scan.next();
+
+System.out.println("Enter Medical History of Patient :-");
+
+Pat_MedHis = scan.next();
+
+String pat1 = "INSERT INTO PATIENT VALUES('" + Pat_ID + "', '" +
+Pat_Name + "', '" + Pat_sex + "','"+ Pat_Treat + "','" + Pat_MedHis +
+"')";
+
+int sin = stmt.executeUpdate(pat1);
+if (sin > 0)
+System.out.println("Successfully Inserted");
+else
+System.out.println("Insert Failed");
+con.close();
+break;
+case (2):
+System.out.println("Enter ID to be deleted :-");
+Pat_ID = scan.nextInt();
+
+String pat2 = "DELETE FROM PATIENT WHERE PATIENT_ID =" +
+Pat_ID;
+
+int detl = stmt.executeUpdate(pat2);
+if (detl > 0)
+System.out.println("Successfully deleted");
+else
+System.out.println("Deletion Failed");
+con.close();
+break;
+default:
+System.out.println("NOT PRESENT !!");
+}
+} catch (SQLException e) {
+System.out.println("Error with data retrieval- SQL" + e);
+}
+}
+
+}
+
+Database Entry (Appointment):
+package HealthCare;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+public class insert3 extends appoint {
+public static void AppInsert() {
+int Appointment_ID;
+int Patient_ID;
+String Appointment_Date;
+int Doctor_ID;
+String Status;
+try (Connection con =
+
+DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl",
+"scott", "tiger"); Statement stmt = con.createStatement();) {
+Scanner scan = new Scanner(System.in);
+System.out.println("Enter Appointment_ID :-");
+Appointment_ID = scan.nextInt();
+System.out.println("Enter Patient_ID :-");
+
+Patient_ID = scan.nextInt();
+System.out.println("Enter Appointment_Date :-");
+Appointment_Date = scan.next();
+System.out.println("Enter Doctor_ID :-");
+Doctor_ID = scan.nextInt();
+System.out.println("Enter Status of Patient :-");
+Status = scan.next();
+
+String dr = "INSERT INTO APPOINTMENT VALUE('" +
+Appointment_ID + "'," + Patient_ID + "','"+ Appointment_Date + "','" +
+Doctor_ID + "','" + Status + "')";
+
+int op = stmt.executeUpdate(dr);
+if (op > 0) {
+System.out.println("SUCCESSFULLY INSERTED");
+} else {
+System.out.println("INSERTED FAILED");
+}
+con.close();
+} catch (SQLException e) {
+System.out.println("Error with data retrieval- SQL" + e);
+}
+}
+}
+
+Database Entry (Billing):
+package HealthCare;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+public class insert4 extends billing {
+public static void BillInsert() {
+int Patient_ID;
+int Medicine_Doctor_Fees;
+String Laboratory_Tests;
+try (Connection con =
+
+DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl",
+"scott", "tiger"); Statement stmt = con.createStatement();) {
+Scanner scan = new Scanner(System.in);
+System.out.println("Enter Patient_ID :-");
+Patient_ID = scan.nextInt();
+
+System.out.println("Enter Total Medicine costs with Doctor Fees :-");
+
+Medicine_Doctor_Fees = scan.nextInt();
+System.out.println("Enter Laboratory_Tests :-");
+
+Laboratory_Tests = scan.next();
+
+String br = "INSERT INTO APPOINTMENT VALUE('" + Patient_ID +
+"'," + Medicine_Doctor_Fees + "','"+ Laboratory_Tests + "')";
+
+int opy = stmt.executeUpdate(br);
+if (opy > 0) {
+System.out.println("SUCCESSFULLY INSERTED");
+} else {
+System.out.println("INSERTED FAILED");
+}
+con.close();
+} catch (SQLException e) {
+System.out.println("Error with data retrieval- SQL" + e);
+}
+}
+}
